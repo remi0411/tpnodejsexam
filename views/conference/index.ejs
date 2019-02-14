@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+</head>
+
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+
+<body>
+  <% if(typeof(userDatas) =="undefined") { %>
+    <button><a href="/users/account">Se connecter</a></button>
+  <% } else { %>
+  <h3 href="/users/logout">Welcome <%= userDatas.name %>
+  </h3>
+  <% } %>
+  <h1>
+    <%= title %>
+  </h1>
+  <table>
+    <tr>
+      <th>Nom</th>
+      <th>Participants</th>
+      <th>Date de début</th>
+      <th>Date de fin</th>
+      <th>Action</th>
+    </tr>
+    <% for(var i=0; i < conferences.length; i++) { %>
+    <tr>
+      <td>
+        <%= conferences[i].name %>
+      </td>
+      <td>
+        <%= conferences[i].attendance.length %>
+      </td>
+      <td>
+        <%= dateformat(conferences[i].begin, "dddd d mmmm yyyy, h:MM:ss TT"); %>
+      </td>
+      <td>
+        <%= dateformat(conferences[i].end, "dddd d mmmm yyyy, h:MM:ss TT"); %>
+      </td>
+      <td>
+        <% if(typeof(userDatas) !="undefined" && conferences[i].attendance.some(a => a.userId == userDatas.sub)) { %>
+          <button><a href="conferences/<%= conferences[i]._id  %>/view">Voir</a></button>
+        <% } else { %>
+          <% if(typeof(userDatas) != "undefined" ){ %>
+            <button><a href="conferences/attend/<%= conferences[i]._id %>">S'y inscrire</a></button>
+          <% } else { %>
+            <button><a href="users/account %>">Se connecter pour s'y inscrire</a></button>
+          <% } %>
+        <% } %>
+      </td>
+    </tr>
+    <% } %>
+
+    <div >
+      <button>
+      <a href="/conferences/add">Ajouter une conférence</a>
+      </button>
+    </div>
+</body>
+
+</html>

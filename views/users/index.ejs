@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>   
+    <h4>Se connecter</h4>
+    <form action="/users/signin" method="post">
+        <input type="text" name="username" placeholder="Nom d'utilisateur">
+        <input type="password" name="password" placeholder='Mot de passe'>
+        <input type="submit" value="Se connecter">
+    </form>
+    <hr>
+    <h1>Pas encore inscrit ?</h1>
+    <form action="/users/signup" method="post">
+        <input type="text" name="username" placeholder="Nom d'utilisateur">
+        <input type="password" name="password" placeholder='Mot de passe'>
+        <input type="submit" value="S'inscrire">
+    </form>
+  </body>
+</html>
